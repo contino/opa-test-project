@@ -3,3 +3,4 @@ my.*
 *tfstate*
 .terraform
 *account.json
+*result.json
