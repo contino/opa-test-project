@@ -8,6 +8,7 @@ pipeline {
         }
         stage('Interpret') {
             steps {
+                sh 'pip3 install --user -r requirements.txt'
                 sh './evalPolicyResult.py'
             }
         }
