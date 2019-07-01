@@ -1,11 +1,14 @@
 pipeline {
-    agent {
-        docker { image 'openpolicyagent/opa:0.12.0' }
-    }
+    agent any
     stages {
         stage('Evaluate') {
             steps {
-                sh 'eval --data /app --format=values data.contino.rules'
+                sh './evalOpaPolicies.sh > result.json'
+            }
+        }
+        stage('Interpret') {
+            steps {
+                sh './evalPolicyResult.py'
             }
         }
     }
