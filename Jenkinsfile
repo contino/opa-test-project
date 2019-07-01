@@ -13,4 +13,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            junit 'test-policy-result-report.xml'
+        }
+    }
 }
