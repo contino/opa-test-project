@@ -2,7 +2,7 @@
 
 import json, sys
 
-with open('result.json') as json_file:  
+with open('result.json') as json_file:
     data = json.load(json_file)
     failed_checks = {k: v for (k, v) in data[0].iteritems() if v == False}
     if len(failed_checks) > 0:
