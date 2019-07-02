@@ -9,6 +9,7 @@ pipeline {
         stage('Generate TF Plan') {
             steps {
                 sh './generateBackendConfig.sh ${TFE_WORKSPACE_TOKEN}'
+                sh 'terraform init'
                 sh './genPlan.sh'
             }
         }
