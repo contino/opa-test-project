@@ -1,9 +1,6 @@
-variable "gcp_project_id" {
-  type = "string"
-  default = "anz-poc-242806"
-}
-
 variable "network_name" {}
+
+variable "gcp_project_id" {}
 
 variable "vault_address" {}
 

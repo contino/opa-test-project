@@ -5,3 +5,4 @@ my.*
 *account.json
 *result.json
 test-policy-result-report.xml
+.terraformrc
