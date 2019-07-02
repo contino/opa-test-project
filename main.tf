@@ -1,53 +1,24 @@
-provider "google" {
-  project = "${var.gcp_project_id}"
-  credentials = "${file("account.json")}"
-  version = "2.9.1"
+terraform {
+  backend "remote" {
+    hostname = "tfe-poc.apac.squadzero.io"
+    organization = "contino"
+
+    workspaces {
+      name = "test-project"
+    }
+  }
 }
 
 provider "null" {
   version = "2.1.2"
 }
 
-resource "google_compute_network" "vpc_network" {
-  name                    = "terraform-network"
-  auto_create_subnetworks = "true"
+module "test-module" {
+  source = "./test-module"
+  network_name = "${var.network_name}"
+  gcp_project_id = "${var.gcp_project_id}"
+  vault_address = "${var.vault_address}"
+  vault_secret_path = "${var.vault_secret_path}"
 }
 
-resource "google_compute_firewall" "ssh-only" {
-  name    = "test-firewall"
-  network = "${google_compute_network.vpc_network.self_link}"
 
-  allow {
-    protocol = "icmp"
-  }
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-}
-
-resource "google_compute_address" "static" {
-  name = "ipv4-address"
-}
-
-resource "google_compute_instance" "vm_instance" {
-  name         = "terraform-instance"
-  machine_type = "f1-micro"
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-9"
-    }
-  }
-
-  network_interface {
-    network = "${google_compute_network.vpc_network.self_link}"
-    access_config {
-      nat_ip = "${google_compute_address.static.address}"
-    }
-  }
-
-}
