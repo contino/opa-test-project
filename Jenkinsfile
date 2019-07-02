@@ -11,7 +11,7 @@ pipeline {
                 TFE_WORKSPACE_TOKEN = credentials('TFE_TEST_PROJECT_WORKSPACE_TOKEN')
             }
             steps {
-                sh './generateBackendConfig.sh ${env.TFE_WORKSPACE_TOKEN}'
+                sh "./generateBackendConfig.sh ${env.TFE_WORKSPACE_TOKEN}"
                 sh 'terraform init'
                 sh './genPlan.sh'
             }
