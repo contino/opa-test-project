@@ -9,6 +9,9 @@ then
    DIR="."
 fi
 
+#Ensure that the output directory exists
+mkdir -p $DIR/opa/plan
+
 terraform plan -out $DIR/opa/plan/my.plan \
     && terraform show -json $DIR/opa/plan/my.plan > $DIR/opa/plan/my.plan.json \
     && python -m json.tool $DIR/opa/plan/my.plan.json > $DIR/opa/plan/plan.json \
