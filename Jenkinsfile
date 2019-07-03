@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh "./generateBackendConfig.sh ${env.TFE_WORKSPACE_TOKEN}"
                 sh 'terraform init'
-                sh './genPlan.sh'
+                sh "./genPlan.sh ${env.WORKSPACE}"
             }
         }
         stage('Evaluate') {

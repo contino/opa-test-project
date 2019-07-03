@@ -2,7 +2,14 @@
 
 echo "Generating terraform plan file..."
 
-terraform plan -out ./opa/plan/my.plan \
-    && terraform show -json ./opa/plan/my.plan > ./opa/plan/my.plan.json \
-    && python -m json.tool ./opa/plan/my.plan.json > ./opa/plan/plan.json \
-    && rm ./opa/plan/my.plan*
+DIR=$1
+
+if [ -z "$DIR" ]
+then
+   DIR="."
+fi
+
+terraform plan -out $DIR/opa/plan/my.plan \
+    && terraform show -json $DIR/opa/plan/my.plan > $DIR/opa/plan/my.plan.json \
+    && python -m json.tool $DIR/opa/plan/my.plan.json > $DIR/opa/plan/plan.json \
+    && rm $DIR/opa/plan/my.plan*
