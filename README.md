@@ -1,5 +1,7 @@
 # Open Policy Agent Terraform Example
 
+[![Build Status](http://35.244.64.120:8080/job/IaC-test-project-apply/badge/icon)](http://35.244.64.120:8080/job/IaC-test-project-apply/)
+
 This repo contains a basic set of rules to exercise bespoke [Open Policy Agent](https://www.openpolicyagent.org/) rules against a terraform (0.12.x) plan file.
 
 FWIW this code is largely an excercise in learning about OPA capabilities.
