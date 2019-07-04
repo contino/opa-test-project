@@ -15,14 +15,6 @@ used_providers_have_version_constraint {
   count(used_providers) == count(providers_with_versions)
 }
 
-used_provider_version[provider_name] = version_constraint {
-  some raw_name                                    
-  data.plan.configuration.provider_config[raw_name] = _
-  version_constraint := data.plan.configuration.provider_config[raw_name].version_constraint
-  names := regex.split(":", raw_name)
-  provider_name := names[count(names) - 1]
-}
-
 # Are all providers on the approved provider list?
 default using_allowed_providers = false
 using_allowed_providers {

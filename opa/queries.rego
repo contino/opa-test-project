@@ -22,10 +22,8 @@ used_provider_version[provider_name] = version_constraint {
 resource_changes_actions[resource_name] = actions {
   data.plan.resource_changes[_].type = type
   data.plan.resource_changes[_].name = name
-  data.plan.resource_changes[_].module_address = module_address
   resource_name = concat(".", [type, name])
-  full_address =  concat(".", [module_address, resource_name])
-  resources := [x | x = data.plan.resource_changes[_]; x.address == full_address]
+  resources := [x | x = data.plan.resource_changes[_]; x.type == type; x.name == name]
   actions := resources[_].change.actions
 }
 
