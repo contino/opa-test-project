@@ -5,6 +5,9 @@
         },
         "null": {
             "version": "2.1.2"
+        },
+        "vault": {
+            "version": "2.9.1"
         }
     }
 }
