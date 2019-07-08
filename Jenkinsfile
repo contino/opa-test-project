@@ -39,8 +39,7 @@ pipeline {
         failure {
             script {
                 sh 'pip3 install --user -r requirements.txt'
-                def comment = readFile 'result.json'
-                sh "./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --comment=${comment} --pr=${env.CHANGE_ID}"
+                sh "cat result.json | ./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --pr=${env.CHANGE_ID}"
             }
         }
     }
