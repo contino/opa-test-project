@@ -37,9 +37,11 @@ pipeline {
             junit '*-report.xml'
         }
         failure {
-            sh 'pip3 install --user -r requirements.txt'
-            def comment = readfile 'result.json'
-            sh "./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --comment=${comment} --pr=${env.CHANGE_ID}"
+            script {
+                sh 'pip3 install --user -r requirements.txt'
+                def comment = readfile 'result.json'
+                sh "./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --comment=${comment} --pr=${env.CHANGE_ID}"
+            }
         }
     }
 }
