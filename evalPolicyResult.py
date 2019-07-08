@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.7
 
 import json, sys
 from junit_xml import TestSuite, TestCase
