@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            junit "${env.WORKSPACE}/test-policy-result-report.xml"
+            junit '*-report.xml'
         }
     }
 }
