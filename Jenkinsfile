@@ -35,5 +35,11 @@ pipeline {
         always {
             junit 'test-policy-result-report.xml'
         }
+        failure {
+            script {
+                def policyEvaluationResult = readFile "${env.WORKSPACE}/result.json"
+                pullRequest.comment(policyEvaluationResult)
+            }
+        }
     }
 }
