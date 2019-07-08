@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 from github import Github
 
@@ -13,8 +13,10 @@ parser.add_argument('--repo', help='the repository', required=True)
 
 args = parser.parse_args()
 
+base_url = "https://{hostname}/api/v3".format(hostname=args.hostname)
+
 ## Github Enterprise with custom hostname
-g = Github(base_url=f'https://{args.hostname}/api/v3', login_or_token=args.access_token)
+g = Github(base_url=base_url, login_or_token=args.access_token)
 
 repo = g.get_repo(args.repo)
 pr = repo.get_pull(args.pr)
