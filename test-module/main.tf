@@ -7,6 +7,7 @@ provider "google" {
 
 provider "vault" {
   address = "${var.vault_address}"
+  version = "2.1.0"
 }
 
 data "vault_generic_secret" "gcp_token" {
