@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            junit 'test-policy-result-report.xml'
+            junit "${env.WORKSPACE}/test-policy-result-report.xml"
         }
         failure {
             script {
