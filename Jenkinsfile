@@ -7,6 +7,7 @@ pipeline {
       TF_VAR_vault_address = "${params.VAULT_ADDRESS}"
       VAULT_TOKEN = credentials('VAULT_TOKEN')
       TF_CLI_CONFIG_FILE = "${env.WORKSPACE}/.terraformrc"
+      GHE_ACCESS_TOKEN = credentials('ghe-anz-simon-personal-token')
     }
     stages {
         stage('Generate TF Plan') {
@@ -34,6 +35,11 @@ pipeline {
     post {
         always {
             junit '*-report.xml'
+        }
+        failure {
+            sh 'pip3 install --user -r requirements.txt'
+            def comment = readfile 'result.json'
+            sh "./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --comment=${comment} --pr=${env.CHANGE_ID}"
         }
     }
 }
