@@ -2,31 +2,24 @@ package contino.rules
 
 import data.contino.terraform.queries as tq
 
-# Check on if the the provider was defined properly
-is_valid_provider(p) {
-  p.version_constraint
-}
-
 # Check if the provider is in the approved provider list, and has the correct version
-is_approved_provider(p) {
-  is_valid_provider(p)
-  p.version_constraint == data.constraints.approved_providers[p.name].version
+is_approved_provider(name, version) {
+  data.constraints.approved_providers[name].version == version
 }
 
 # Have all defined providers has their version constraints defined?
 default used_providers_have_version_constraint = false
 used_providers_have_version_constraint {
   used_providers = data.plan.configuration.provider_config
-  used_providers_with_versions := [p | p = used_providers[_]; is_valid_provider(p)]
-  count(used_providers) == count(used_providers_with_versions)
+  providers_with_versions := tq.used_provider_version
+  count(used_providers) == count(providers_with_versions)
 }
 
 # Are all providers on the approved provider list?
 default using_allowed_providers = false
 using_allowed_providers {
-  used_providers = data.plan.configuration.provider_config
-  result := [p | p = used_providers[_];  is_approved_provider(p)]
-  count(used_providers) == count(result)
+  providers_with_versions := tq.used_provider_version
+  count(providers_with_versions) == count([version | version = providers_with_versions[name]; is_approved_provider(name, version)])
 }
 
 # a predicate for actions that are not within the allowed
