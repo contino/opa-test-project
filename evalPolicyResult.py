@@ -18,13 +18,9 @@ with open('test-policy-result-report.xml', 'w') as f:
     TestSuite.to_file(f, generate_junit_report(checks), prettyprint=True)
 failed_checks = {k: v for (k, v) in checks if v == False}
 if len(failed_checks) > 0:
-    messages = []
-    messages.append("Policy Check Failures Detected! The following policy checks failed:")
+    print("Policy Check Failures Detected! The following policy checks failed:")
     for (k, v) in failed_checks.items():
-        messages.append("\t{}".format(k))
-    print("\n".join(messages))
-    with open("result.txt", "w") as o:
-        o.write("\n".join(messages))
+        print("\t{}".format(k))
     sys.exit(-1)
 else:
     print("All Policy Checks Succeeded!")

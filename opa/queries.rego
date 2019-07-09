@@ -27,3 +27,11 @@ resource_changes_actions[resource_name] = actions {
   actions := resources[_].change.actions
 }
 
+# the zone a resource are being placed in
+resource_changes_zones[resource_name] = zone {
+  data.plan.resource_changes[_].type = type
+  data.plan.resource_changes[_].name = name
+  resource_name = concat(".", [type, name])
+  resources := [x | x = data.plan.resource_changes[_]; x.type == type; x.name == name]
+  zone := resources[_].change.after.zone
+}

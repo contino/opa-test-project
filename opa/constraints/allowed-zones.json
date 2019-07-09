@@ -1,0 +1,6 @@
+{
+    "allowed_zones": [
+      "australia-southeast1-a",
+      "australia-southeast1-b"
+    ]
+}
