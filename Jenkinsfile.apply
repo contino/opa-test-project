@@ -23,7 +23,7 @@ pipeline {
             steps {
                 sh './evalOpaPolicies.sh > result.json'
                 sh 'pip3 install --user -r requirements.txt'
-                sh './evalPolicyResult.py'
+                sh 'cat result.json | ./evalPolicyResult.py'
             }
         }
         stage('Apply to environment') {
