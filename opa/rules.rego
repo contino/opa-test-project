@@ -36,9 +36,10 @@ all_resource_changes_approved {
   count([x | x = tq.resource_changes[_]; resource_actions_disallowed(x)]) == 0
 }
 
-default allow = false
-allow {
-  all_resource_changes_approved
-  used_providers_have_version_constraint
-  using_allowed_providers
+# Are resources being placed in the allowed zones?
+default all_resource_in_allowed_zones = false
+all_resource_in_allowed_zones {
+  zones := cast_set([r | r = tq.resource_changes_zones[_]])
+  allowed_zones := cast_set(data.constraints.allowed_zones)
+  count(zones - allowed_zones) == 0
 }
