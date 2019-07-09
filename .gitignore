@@ -3,6 +3,6 @@ my.*
 *tfstate*
 .terraform
 *account.json
-*result.json
-test-policy-result-report.xml
+*result*
+*report.xml
 .terraformrc

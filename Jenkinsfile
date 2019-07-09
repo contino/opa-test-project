@@ -29,7 +29,7 @@ pipeline {
         stage('Interpret') {
             steps {
                 sh 'pip3 install --user -r requirements.txt'
-                sh './evalPolicyResult.py'
+                sh 'cat result.json | ./evalPolicyResult.py'
             }
         }
     }
@@ -40,7 +40,7 @@ pipeline {
         failure {
             script {
                 sh 'pip3 install --user -r requirements.txt'
-                sh "cat result.json | ./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --pr=${env.PULL_REQUEST_ID}"
+                sh "cat result.txt | ./post_comment.py --access_token=${env.GHE_ACCESS_TOKEN} --hostname=ghe-poc.apac.squadzero.io --repo=contino-anz/test-project --pr=${env.PULL_REQUEST_ID}"
             }
         }
     }

@@ -12,16 +12,19 @@ def generate_junit_report(checks):
         test_cases.append(tc)
     return [TestSuite("Policy Checks", test_cases)]
 
-with open('result.json') as json_file:
-    data = json.load(json_file)
-    checks = data[0].items()
-    with open('test-policy-result-report.xml', 'w') as f:
-        TestSuite.to_file(f, generate_junit_report(checks), prettyprint=True)
-    failed_checks = {k: v for (k, v) in checks if v == False}
-    if len(failed_checks) > 0:
-        print("Policy Check Failures Detected! The following policy checks failed:")
-        for (k, v) in failed_checks.items():
-            print("\t{}".format(k))
-        sys.exit(-1)
-    else:
-        print("All Policy Checks Succeeded!")
+data = json.loads(sys.stdin.read())
+checks = data[0].items()
+with open('test-policy-result-report.xml', 'w') as f:
+    TestSuite.to_file(f, generate_junit_report(checks), prettyprint=True)
+failed_checks = {k: v for (k, v) in checks if v == False}
+if len(failed_checks) > 0:
+    messages = []
+    messages.append("Policy Check Failures Detected! The following policy checks failed:")
+    for (k, v) in failed_checks.items():
+        messages.append("\t{}".format(k))
+    print("\n".join(messages))
+    with open("result.txt", "w") as o:
+        o.write("\n".join(messages))
+    sys.exit(-1)
+else:
+    print("All Policy Checks Succeeded!")
