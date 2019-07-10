@@ -42,7 +42,7 @@ resource "google_compute_address" "static" {
 resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
   machine_type = "f1-micro"
-  zone         = "australia-southeast1-b"
+  zone         = "australia-southeast1-c"
 
   boot_disk {
     initialize_params {
