@@ -13,5 +13,5 @@ steps:
 - bash: echo Hello, world! >> file.txt
   displayName: 'Run a one-line script'
 
-- bash: ls -l file.txt
+- bash: ls -l file2.txt
   displayName: 'Check if the file exists'
