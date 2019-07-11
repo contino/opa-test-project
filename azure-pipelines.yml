@@ -4,11 +4,26 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
 - azure-pipelines
 
 pool:
   vmImage: 'ubuntu-latest'
+
+variables:
+- name: TF_VAR_vault_address
+  value: 'https://vault.nitin.guru:8200'
+- name: VAULT_TOKEN
+  value: ''
+
+stages: 
+- stage: Generate TF Plan
+  
+  jobs:
+  - job: 
+    steps:
+    - bash: generateBackendConfig.sh
+      displayName: Generate backend config
+      name:   generateBackendConfig
 
 steps:
 - bash: echo Hello, world! >> file.txt
