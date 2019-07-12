@@ -30,3 +30,6 @@ stages:
     - script: ./genPlan.sh 
       displayName: Generate Terraform Plan
 
+- stage: stage B
+  displayName: DoNothing
+
