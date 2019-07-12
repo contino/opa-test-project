@@ -24,10 +24,3 @@ stages:
     - bash: generateBackendConfig.sh
       displayName: Generate backend config
       name:   generateBackendConfig
-
-steps:
-- bash: echo Hello, world! >> file.txt
-  displayName: 'Run a one-line script'
-
-- bash: ls -l file.txt
-  displayName: 'Check if the file exists'
