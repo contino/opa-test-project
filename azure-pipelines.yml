@@ -6,9 +6,6 @@
 trigger:
 - azure-pipelines
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
 - name: TF_VAR_vault_address
   value: 'https://vault.nitin.guru:8200'
@@ -17,19 +14,20 @@ variables:
 - name: TFE_WORKSPACE_TOKEN
   value: 'iCC9yRZQLvbGGw.atlasv1.VKDIhi88lKT1Z5zwmHYI0EZKS1N8HJzWjSCf3bCOCoE7uYvO98LTgAQHy1J7RpmPzeA'
 
-stages:
-- stage: stage A
-  displayName: generate TF plan
-  jobs:
-  - job: TFplan
-    steps:
-    - script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
-      displayName: Generate backend config
-    - script: terraform init
-      displayName: Terraform Initialized
-    - script: ./genPlan.sh 
-      displayName: Generate Terraform Plan
+jobs:
+- job: TFplan
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
+    displayName: Generate backend config
+  - script: terraform init
+    displayName: Terraform Initialized
+  - script: ./genPlan.sh 
+    displayName: Generate Terraform Plan
 
-- stage: stage B
-  displayName: DoNothing
-
+- job: Placeholder
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - script: echo "Placeholder"
