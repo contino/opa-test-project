@@ -17,9 +17,8 @@ variables:
 - name: TFE_WORKSPACE_TOKEN
   value: 'iCC9yRZQLvbGGw.atlasv1.VKDIhi88lKT1Z5zwmHYI0EZKS1N8HJzWjSCf3bCOCoE7uYvO98LTgAQHy1J7RpmPzeA'
 
-jobs: 
-- job: GenerateTFPlan
-  steps:
-  - bash: generateBackendConfig.sh 
-    displayName: Generate backend config
-    name:   generateBackendConfig
+
+steps:
+- bash: generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
+  displayName: Generate backend config
+  name:   generateBackendConfig
