@@ -13,14 +13,13 @@ variables:
 - name: TF_VAR_vault_address
   value: 'https://vault.nitin.guru:8200'
 - name: VAULT_TOKEN
-  value: ''
+  value: '8nPws6r7dMx2yNCYnvCVDhZ0'
+- name: TFE_WORKSPACE_TOKEN
+  value: 'iCC9yRZQLvbGGw.atlasv1.VKDIhi88lKT1Z5zwmHYI0EZKS1N8HJzWjSCf3bCOCoE7uYvO98LTgAQHy1J7RpmPzeA'
 
-stages: 
-- stage: Generate TF Plan
-  
-  jobs:
-  - job: 
-    steps:
-    - bash: generateBackendConfig.sh
-      displayName: Generate backend config
-      name:   generateBackendConfig
+jobs: 
+- job: GenerateTFPlan
+  steps:
+  - bash: generateBackendConfig.sh 
+    displayName: Generate backend config
+    name:   generateBackendConfig
