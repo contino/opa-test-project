@@ -17,8 +17,16 @@ variables:
 - name: TFE_WORKSPACE_TOKEN
   value: 'iCC9yRZQLvbGGw.atlasv1.VKDIhi88lKT1Z5zwmHYI0EZKS1N8HJzWjSCf3bCOCoE7uYvO98LTgAQHy1J7RpmPzeA'
 
+stages:
+- stage: stage A
+  displayName: generate TF plan
+  jobs:
+  - job: TFplan
+    steps:
+    - script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
+      displayName: Generate backend config
+    - script: terraform init
+      displayName: Terraform Initialized
+    - script: ./genPlan.sh 
+      displayName: Generate Terraform Plan
 
-steps:
-- script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
-  displayName: Generate backend config
-  name:   generateBackendConfig
