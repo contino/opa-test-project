@@ -19,6 +19,6 @@ variables:
 
 
 steps:
-- script: generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
+- script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
   displayName: Generate backend config
   name:   generateBackendConfig
