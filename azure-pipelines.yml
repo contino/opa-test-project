@@ -21,6 +21,7 @@ jobs:
   steps:
   - script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
     displayName: Generate backend config
+  - script: cat .terraformrc
   - script: terraform version
     displayName: Terraform Initialized
   # - script: ./genPlan.sh 
