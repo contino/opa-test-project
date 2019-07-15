@@ -18,9 +18,11 @@ jobs:
 - job: TFplan
   pool:
     vmImage: 'ubuntu-latest'
+  variables:
+    workDir: $(System.DefaultWorkingDirectory)
   container:  
     image: hashicorp/terraform:latest
-    options: -e "TF_CLI_CONFIG_FILE=.terraformrc"
+    options: -v $(workDir):/data -w /data -e "TF_CLI_CONFIG_FILE=.terraformrc"
   steps:
   - script: ./generateBackendConfig.sh $(TFE_WORKSPACE_TOKEN)
     displayName: Generate backend config
